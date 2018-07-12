@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLobbySearcher", "AutoLobbySearcher\AutoLobbySearcher.csproj", "{90063F47-8CDD-4970-AD76-78E8F19FECEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90063F47-8CDD-4970-AD76-78E8F19FECEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90063F47-8CDD-4970-AD76-78E8F19FECEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90063F47-8CDD-4970-AD76-78E8F19FECEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90063F47-8CDD-4970-AD76-78E8F19FECEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {705FBDAA-9322-4FC3-843B-4C2FD69E4AE4}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,99 @@
+﻿<Window x:Class="AutoLobbySearcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoLobbySearcher"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <GroupBox>
+            <GroupBox.Header>
+                <HeaderedContentControl Content="Random lobby tool" HorizontalContentAlignment="Center"/>
+            </GroupBox.Header>
+            <StackPanel>
+                <TextBlock Text="Profile or lobby link"/>
+                <TextBox Name="urlBox"/>
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Source lobby ID: "/>
+                        <TextBlock Name="sourceIdLabel" Text="-"/>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button Content="Copy" Margin="0,0,5,0" Click="CopyButton_Click"/>
+                        <Button Name="scanButton" Content="Scan" Click="ScanButton_Click"/>
+                    </StackPanel>
+                </DockPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Difference from the source ID: "/>
+                    <TextBlock Name="differenceLabel" Text="-"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Name="relativeIdBox" Width="50"/>
+                    <Button Margin="5,0,5,0" Content="Join new lobby" Click="JoinNextButton_Click"/>
+                    <Button Content="Add to list"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Monitoring tool">
+            <DockPanel LastChildFill="True">
+                <DockPanel Height="Auto" DockPanel.Dock="Top">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Updates:" VerticalAlignment="Center"/>
+                        <TextBlock Margin="5" Name="updatesLabel" Text="-" VerticalAlignment="Center"/>
+                        <ComboBox SelectedIndex="0">
+                            <ComboBoxItem Content="Dont join"/>
+                            <ComboBoxItem Content="Join once"/>
+                            <ComboBoxItem Content="Join always"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel  HorizontalAlignment="Right" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Right" Text="Delay (sec): " VerticalAlignment="Center"/>
+                        <TextBox Width="30"/>
+                    </StackPanel>
+                </DockPanel>
+                <Grid Height="Auto" DockPanel.Dock="Bottom">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <ToggleButton Name="autoRefreshButton">
+                        <ToggleButton.Style>
+                            <Style TargetType="{x:Type ToggleButton}">
+                                <Setter Property="Content" Value="Auto Refresh: Disabled"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Trigger.Setters>
+                                            <Setter Property="Content" Value="Auto Refresh: Enabled"/>
+                                            <Setter Property="Foreground" Value="Lime"/>
+                                        </Trigger.Setters>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
+                    <Button Content="Join" Grid.Column="1"/>
+                    <TextBox Grid.Row="1"/>
+                    <Button Content="Add" Grid.Row="1" Grid.Column="1"/>
+                </Grid>
+                <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding tableEntries}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="False"/>
+                        <DataGridTextColumn Binding="{Binding Game}" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding LobbyId}" IsReadOnly="True"/>
+                        <DataGridCheckBoxColumn Binding="{Binding IsPublic}" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </GroupBox>
+    </Grid>
+</Window>
