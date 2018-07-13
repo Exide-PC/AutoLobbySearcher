@@ -41,6 +41,9 @@ namespace AutoLobbySearcher
         
         public Lobby(string url)
         {
+            if (!url.StartsWith("steam://"))
+                throw new Exception("Incorrect lobby url");
+
             UpdateProperties(url);
         }
 

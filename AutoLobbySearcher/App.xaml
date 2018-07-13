@@ -4,6 +4,48 @@
              xmlns:local="clr-namespace:AutoLobbySearcher"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="Forecolor" Color="#e8e8e8"/>
+        <SolidColorBrush x:Key="PrimaryHue" Color="#262626"/>
+        <SolidColorBrush x:Key="PrimaryLightHue" Color="#3a3a3a"/>
+        <SolidColorBrush x:Key="PrimaryDarkHue" Color="#1a1a1a"/>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource Forecolor}"/>
+            <!--<Setter Property="Height" Value="24"/>-->
+            <Setter Property="Padding" Value="3,3,3,3"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="#3e5875"/>
+                            <GradientStop Offset="1" Color="#293341"/>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Padding="{TemplateBinding Padding}" BorderThickness="1" BorderBrush="#7a8a99" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStop Offset="0" Color="#4d6a8c"/>
+                                                <GradientStop Offset="1" Color="#384354"/>
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

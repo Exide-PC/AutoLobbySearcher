@@ -1,0 +1,36 @@
+﻿<Window x:Class="AutoLobbySearcher.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoLobbySearcher"
+        mc:Ignorable="d"
+        Title="About" Height="276.8" Width="224" ResizeMode="NoResize">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="AutoLobbySearcher" Grid.Row="0" HorizontalAlignment="Center" FontSize="20"/>
+            <TextBlock Text="created by Exide" Grid.Row="1" HorizontalAlignment="Center" FontSize="14"/>
+            <Image Grid.Row="2" Source="pack://application:,,,/AutoLobbySearcher;component/Resources/icon_120.png"/>
+            <Grid Margin="1" Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Blog [rus]" Click="Button_Click"/>
+                <Button Content="Group" Grid.Column="1" Click="Button_Click_1"/>
+                <Button Content="Steam profile" Grid.Row="1" Click="Button_Click_2"/>
+                <Button Content="GitHub" Grid.Row="1" Grid.Column="1" Click="Button_Click_3"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

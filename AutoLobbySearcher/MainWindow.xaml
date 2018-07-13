@@ -5,13 +5,102 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoLobbySearcher"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="AutoLobbySearcher" Height="500" Width="500" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <!--<Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource Forecolor}"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="#3e5875"/>
+                            <GradientStop Offset="1" Color="#293341"/>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="24" Padding="3,0,3,0" BorderThickness="1" BorderBrush="#7a8a99" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStop Offset="0" Color="#4d6a8c"/>
+                                                <GradientStop Offset="1" Color="#384354"/>
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>-->
+        <Style TargetType="{x:Type ToggleButton}" x:Key="as">
+            <Setter Property="IsChecked" Value="False"/>
+            <Setter Property="Foreground" Value="{StaticResource Forecolor}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Button x:Name="button" Content="{TemplateBinding Content}"/>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Foreground" Value="Lime"/>
+                                <Setter Property="Content" Value="Auto Refresh: Disabled"/>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="button">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsChecked">
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                                        </BooleanAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="Margin" Value="3,0,3,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderThickness="0">
+                                <ContentPresenter Margin="4" ContentSource="Header" RecognizesAccessKey="True" HorizontalAlignment="Center"/>
+                            </Border>
+
+                            <Border Grid.Row="1" BorderThickness="1" CornerRadius="2,2,2,2" BorderBrush="{StaticResource PrimaryDarkHue}">
+                                <ContentPresenter Margin="4" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <GroupBox>
+        <GroupBox BorderBrush="Black">
             <GroupBox.Header>
                 <HeaderedContentControl Content="Random lobby tool" HorizontalContentAlignment="Center"/>
             </GroupBox.Header>
@@ -24,8 +113,8 @@
                         <TextBlock Name="sourceIdLabel" Text="-"/>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Button Content="Copy" Margin="0,0,5,0" Click="CopyButton_Click"/>
-                        <Button Name="scanButton" Content="Scan" Click="ScanButton_Click"/>
+                        <Button Content="Copy" Width="50" Click="CopyButton_Click"/>
+                        <Button Name="scanButton" Width="50" Content="Scan" Click="ScanButton_Click"/>
                     </StackPanel>
                 </DockPanel>
                 <StackPanel Orientation="Horizontal">
@@ -33,9 +122,9 @@
                     <TextBlock Name="differenceLabel" Text="-"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Name="relativeIdBox" Width="50"/>
-                    <Button Margin="5,0,5,0" Content="Join new lobby" Click="JoinNextButton_Click"/>
-                    <Button Content="Add to list"/>
+                    <TextBox VerticalContentAlignment="Center" Width="50" Name="relativeIdBox" PreviewTextInput="NumericTextbox_PreviewTextInput"/>
+                    <Button Width="110" Content="Join new lobby" Click="JoinNextButton_Click"/>
+                    <Button Width="110" Content="Add lobby to list" Click="AddToListButton_Click"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
@@ -44,8 +133,8 @@
                 <DockPanel Height="Auto" DockPanel.Dock="Top">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Updates:" VerticalAlignment="Center"/>
-                        <TextBlock Margin="5" Name="updatesLabel" Text="-" VerticalAlignment="Center"/>
-                        <ComboBox SelectedIndex="0">
+                        <TextBlock Margin="5" Name="updatesLabel" Text="0" VerticalAlignment="Center"/>
+                        <ComboBox Name="joinOptionCombobox" SelectedIndex="0" Foreground="{StaticResource PrimaryLightHue}" Background="Black">
                             <ComboBoxItem Content="Dont join"/>
                             <ComboBoxItem Content="Join once"/>
                             <ComboBoxItem Content="Join always"/>
@@ -53,7 +142,7 @@
                     </StackPanel>
                     <StackPanel  HorizontalAlignment="Right" Orientation="Horizontal">
                         <TextBlock HorizontalAlignment="Right" Text="Delay (sec): " VerticalAlignment="Center"/>
-                        <TextBox Width="30"/>
+                        <TextBox Text="1" VerticalContentAlignment="Center" Name="delayBox" PreviewTextInput="NumericTextbox_PreviewTextInput" Width="30"/>
                     </StackPanel>
                 </DockPanel>
                 <Grid Height="Auto" DockPanel.Dock="Bottom">
@@ -62,38 +151,53 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
-                    <ToggleButton Name="autoRefreshButton">
+                    <ToggleButton Name="autoRefreshButton" Click="AutoRefreshButton_Click">
                         <ToggleButton.Style>
                             <Style TargetType="{x:Type ToggleButton}">
+                                <Setter Property="IsChecked" Value="False"/>
+                                <Setter Property="Foreground" Value="{StaticResource Forecolor}"/>
                                 <Setter Property="Content" Value="Auto Refresh: Disabled"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsChecked" Value="True">
-                                        <Trigger.Setters>
-                                            <Setter Property="Content" Value="Auto Refresh: Enabled"/>
-                                            <Setter Property="Foreground" Value="Lime"/>
-                                        </Trigger.Setters>
-                                    </Trigger>
-                                </Style.Triggers>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                            <Button Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"/>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter Property="Foreground" Value="Lime"/>
+                                                    <Setter Property="Content" Value="Auto Refresh: Enabled"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </ToggleButton.Style>
                     </ToggleButton>
-                    <Button Content="Join" Grid.Column="1"/>
-                    <TextBox Grid.Row="1"/>
-                    <Button Content="Add" Grid.Row="1" Grid.Column="1"/>
+                    <Button Content="Join" Grid.Column="1" Click="JoinLobbyButton_Click"/>
+                    <TextBox Name="lowerUrlBox" Grid.Row="1"/>
+                    <Button Content="Add" Grid.Column="1" Grid.Row="1" Click="LowerAddButton_Click"/>
                 </Grid>
-                <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding tableEntries}">
+                <DataGrid KeyDown="dataGrid_KeyDown" SelectionMode="Single" Name="dataGrid" AutoGenerateColumns="False" CanUserAddRows="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="False"/>
-                        <DataGridTextColumn Binding="{Binding Game}" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding LobbyId}" IsReadOnly="True"/>
-                        <DataGridCheckBoxColumn Binding="{Binding IsPublic}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="False" Width="25*"/>
+                        <DataGridTextColumn Header="Game" Binding="{Binding Game}" IsReadOnly="True" Width="30*"/>
+                        <DataGridTextColumn Header="LobbyId" Binding="{Binding LobbyId}" IsReadOnly="True" Width="30*"/>
+                        <DataGridCheckBoxColumn Header="IsPublic" Binding="{Binding IsPublic}" IsReadOnly="True" Width="15*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
         </GroupBox>
+        <TextBlock Margin="5,0,0,0" Name="status" Grid.Row="2" HorizontalAlignment="Left"/>
+        <Button Margin="0,0,5,0" Grid.Row="2" HorizontalAlignment="Right" Foreground="Black" Click="About_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock Text="About" Foreground="{TemplateBinding Foreground}"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>
