@@ -418,5 +418,10 @@ namespace AutoLobbySearcher
             AboutWindow aw = new AboutWindow();
             aw.ShowDialog();
         }
+
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        {
+            SetStatus(string.Empty);
+        }
     }
 }

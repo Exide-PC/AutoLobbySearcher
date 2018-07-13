@@ -7,43 +7,6 @@
         mc:Ignorable="d"
         Title="AutoLobbySearcher" Height="500" Width="500" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
-        <!--<Style TargetType="Button">
-            <Setter Property="Foreground" Value="{StaticResource Forecolor}"/>
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <LinearGradientBrush.GradientStops>
-                            <GradientStop Offset="0" Color="#3e5875"/>
-                            <GradientStop Offset="1" Color="#293341"/>
-                        </LinearGradientBrush.GradientStops>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Height="24" Padding="3,0,3,0" BorderThickness="1" BorderBrush="#7a8a99" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <LinearGradientBrush.GradientStops>
-                                                <GradientStop Offset="0" Color="#4d6a8c"/>
-                                                <GradientStop Offset="1" Color="#384354"/>
-                                            </LinearGradientBrush.GradientStops>
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>-->
         <Style TargetType="{x:Type ToggleButton}" x:Key="as">
             <Setter Property="IsChecked" Value="False"/>
             <Setter Property="Foreground" Value="{StaticResource Forecolor}"/>
@@ -94,7 +57,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid MouseEnter="Grid_MouseEnter">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="1*"/>
@@ -183,10 +146,10 @@
                 </Grid>
                 <DataGrid KeyDown="dataGrid_KeyDown" SelectionMode="Single" Name="dataGrid" AutoGenerateColumns="False" CanUserAddRows="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="False" Width="25*"/>
-                        <DataGridTextColumn Header="Game" Binding="{Binding Game}" IsReadOnly="True" Width="30*"/>
-                        <DataGridTextColumn Header="LobbyId" Binding="{Binding LobbyId}" IsReadOnly="True" Width="30*"/>
-                        <DataGridCheckBoxColumn Header="IsPublic" Binding="{Binding IsPublic}" IsReadOnly="True" Width="15*"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="False" Width="25*" CanUserSort="False"/>
+                        <DataGridTextColumn Header="Game" Binding="{Binding Game}" IsReadOnly="True" Width="30*" CanUserSort="False"/>
+                        <DataGridTextColumn Header="LobbyId" Binding="{Binding LobbyId}" IsReadOnly="True" Width="30*" CanUserSort="False"/>
+                        <DataGridCheckBoxColumn Header="IsPublic" Binding="{Binding IsPublic}" IsReadOnly="True" Width="15*" CanUserSort="False"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
