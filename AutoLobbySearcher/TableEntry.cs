@@ -9,7 +9,6 @@ using System.Xml.Serialization;
 
 namespace AutoLobbySearcher
 {
-    [XmlRoot(ElementName = "SteamProfile")]
     public class TableEntry: BindableBase, IXmlSerializable
     {
         Uri _url;
@@ -55,13 +54,6 @@ namespace AutoLobbySearcher
         public string LobbyId
         {
             get => this._lobby?.LobbyId.ToString() ?? string.Empty;
-            //private set
-            //{
-            //    // Вручную зададим ID лобби у привязанного экземпляра лобби
-            //    this._lobby.SetLobbyId(value);
-            //    // И вручную сгенерируем событие
-            //    this.RaisePropertyChanged(nameof(LobbyId));
-            //}
         }
 
         [XmlIgnore]

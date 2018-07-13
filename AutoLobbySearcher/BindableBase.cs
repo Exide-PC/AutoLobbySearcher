@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AutoLobbySearcher
 {
-    // Prism BindableBase copypaste :|
+    // Credits to Prism. Just a copypaste:|
     public abstract class BindableBase : INotifyPropertyChanged
     {
         /// <summary>

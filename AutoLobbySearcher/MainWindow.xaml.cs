@@ -107,22 +107,22 @@ namespace AutoLobbySearcher
                 return;
             }
 
+            // Получим прошлую разницу между ID и прибавим к ней новую
             long prevSourceDif = long.Parse(differenceLabel.Text);
             long newId = this.sourceLobby.LobbyId + prevSourceDif + dif;
-            //this.differenceLabel.Text = prevSourceDif.ToString();
 
             // Скопируем исходное лобби
             Lobby newLobby = new Lobby(this.sourceLobby.Url);
             // И отредактируем id
             newLobby.SetLobbyId(newId);
 
-            // Определим разницу между текущим и исходным
+            // Определим разницу между новым и исходным лобби
             long sourceDif = newLobby.LobbyId - sourceLobby.LobbyId;
             this.differenceLabel.Text = sourceDif.ToString();
             this.urlBox.Text = newLobby.Url;
             this.relativeIdBox.Text = 1.ToString();
 
-            System.Diagnostics.Process.Start(newLobby.Url);
+            JoinLobby(newLobby);
         }
 
         private void AddToListButton_Click(object sender, RoutedEventArgs e)
@@ -168,10 +168,11 @@ namespace AutoLobbySearcher
 
         private async void AutoRefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            // Инвертируем значение переключателя
             System.Windows.Controls.Primitives.ToggleButton toggleButton =
                 (System.Windows.Controls.Primitives.ToggleButton)sender;
 
+            // Инвертируем значение переключателя
+            // TODO: Реализовать через стиль кнопки
             toggleButton.IsChecked = !toggleButton.IsChecked;
 
 
@@ -261,6 +262,12 @@ namespace AutoLobbySearcher
             });
         }
 
+        /// <summary>
+        /// Метод для создания элемента таблицы по переданному URL
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="resultEntry">Элемент представляющий собой либо конечное лобби, либо стим-профиль</param>
+        /// <returns>Флаг успеха операции</returns>
         bool TryCreateEntry(string url, out TableEntry resultEntry)
         {
             resultEntry = null;
@@ -291,7 +298,7 @@ namespace AutoLobbySearcher
         }
 
         /// <summary>
-        /// Асинхронный метод для обновления информации о стим-профиле
+        /// Асинхронный метод для обновления информации о стим-профиле. Таблица обновляется автоматически по причине реализации интерфейса INPC
         /// </summary>
         /// <param name="entry">Профиль, информацию о котором необходимо обновить</param>
         /// <returns></returns>
@@ -299,7 +306,6 @@ namespace AutoLobbySearcher
         {
             return Task.Factory.StartNew(() =>
             {
-
                 HtmlDocument doc = DownloadHtmlAsync(entry.Url).Result;
 
                 // Получим узел с игрой

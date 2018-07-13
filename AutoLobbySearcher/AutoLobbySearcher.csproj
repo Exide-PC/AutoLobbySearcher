@@ -64,7 +64,6 @@
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="BindableBase.cs" />
-    <Compile Include="BoolInverter.cs" />
     <Compile Include="IniSettings.cs" />
     <Compile Include="Lobby.cs" />
     <Compile Include="Settings.cs" />
