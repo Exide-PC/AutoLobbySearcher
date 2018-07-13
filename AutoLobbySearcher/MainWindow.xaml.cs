@@ -274,7 +274,7 @@ namespace AutoLobbySearcher
             if (!Uri.TryCreate(url, UriKind.Absolute, out var createdUrl)) return false;
 
             if (createdUrl.Host == "steamcommunity.com" &&
-                (createdUrl.AbsolutePath.StartsWith("/profile/") || createdUrl.AbsolutePath.StartsWith("/id/")))
+                (createdUrl.AbsolutePath.StartsWith("/profiles/") || createdUrl.AbsolutePath.StartsWith("/id/")))
             {
                 resultEntry = new TableEntry()
                 {
